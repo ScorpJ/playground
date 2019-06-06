@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: dev
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+#      force-request: true
+#      force-response: true
+
+
+server:
+  port: 8088
+
+mybatis:
+  #  type-aliases-package: tk.mybatis.springboot.model
+  mapper-locations: classpath*:mappers/*.xml
+
+#mapper:
+#  mappers: tk.mybatis.springboot.util.MyMapper
+#  not-empty: false
+#  identity: MYSQL
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+#endpoints:
+#  restart:
+#    enabled: true
+#  shutdown:
+#    enabled: true
+#  health:
+#    sensitive: false
+
+

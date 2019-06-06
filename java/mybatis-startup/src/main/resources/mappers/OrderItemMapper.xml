@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.arthur.mybatisstartup.dao.OrderItemMapper">
+    <resultMap id="BaseResultMap" type="com.arthur.mybatisstartup.entity.OrderItem">
+        <constructor>
+            <idArg column="ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="ORDER_NO" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="PRODUCT_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="PRODUCT_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="PRODUCT_IMAGE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="CURRENT_UNIT_PRICE" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+            <arg column="QUANTITY" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="TOTAL_PRICE" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+            <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, USER_ID, ORDER_NO, PRODUCT_ID, PRODUCT_NAME, PRODUCT_IMAGE, CURRENT_UNIT_PRICE,
+        QUANTITY, TOTAL_PRICE, CREATE_TIME, UPDATE_TIME
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from MMALL_ORDER_ITEM
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from MMALL_ORDER_ITEM
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.arthur.mybatisstartup.entity.OrderItem">
+        insert into MMALL_ORDER_ITEM (ID, USER_ID, ORDER_NO,
+        PRODUCT_ID, PRODUCT_NAME, PRODUCT_IMAGE,
+        CURRENT_UNIT_PRICE, QUANTITY, TOTAL_PRICE,
+        CREATE_TIME, UPDATE_TIME)
+        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderNo,jdbcType=BIGINT},
+        #{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productImage,jdbcType=VARCHAR},
+        #{currentUnitPrice,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, #{totalPrice,jdbcType=DECIMAL},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.arthur.mybatisstartup.entity.OrderItem">
+        insert into MMALL_ORDER_ITEM
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="orderNo != null">
+                ORDER_NO,
+            </if>
+            <if test="productId != null">
+                PRODUCT_ID,
+            </if>
+            <if test="productName != null">
+                PRODUCT_NAME,
+            </if>
+            <if test="productImage != null">
+                PRODUCT_IMAGE,
+            </if>
+            <if test="currentUnitPrice != null">
+                CURRENT_UNIT_PRICE,
+            </if>
+            <if test="quantity != null">
+                QUANTITY,
+            </if>
+            <if test="totalPrice != null">
+                TOTAL_PRICE,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="orderNo != null">
+                #{orderNo,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=INTEGER},
+            </if>
+            <if test="productName != null">
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productImage != null">
+                #{productImage,jdbcType=VARCHAR},
+            </if>
+            <if test="currentUnitPrice != null">
+                #{currentUnitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="totalPrice != null">
+                #{totalPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.arthur.mybatisstartup.entity.OrderItem">
+        update MMALL_ORDER_ITEM
+        <set>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="orderNo != null">
+                ORDER_NO = #{orderNo,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                PRODUCT_ID = #{productId,jdbcType=INTEGER},
+            </if>
+            <if test="productName != null">
+                PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productImage != null">
+                PRODUCT_IMAGE = #{productImage,jdbcType=VARCHAR},
+            </if>
+            <if test="currentUnitPrice != null">
+                CURRENT_UNIT_PRICE = #{currentUnitPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="quantity != null">
+                QUANTITY = #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="totalPrice != null">
+                TOTAL_PRICE = #{totalPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.arthur.mybatisstartup.entity.OrderItem">
+        update MMALL_ORDER_ITEM
+        set USER_ID = #{userId,jdbcType=INTEGER},
+        ORDER_NO = #{orderNo,jdbcType=BIGINT},
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+        PRODUCT_IMAGE = #{productImage,jdbcType=VARCHAR},
+        CURRENT_UNIT_PRICE = #{currentUnitPrice,jdbcType=DECIMAL},
+        QUANTITY = #{quantity,jdbcType=INTEGER},
+        TOTAL_PRICE = #{totalPrice,jdbcType=DECIMAL},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

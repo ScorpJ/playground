@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: UserCredits-Service
+  datasource:
+    platform: h2
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/mmall;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+logging:
+  level:
+    #    org.springframework: info
+    com.arthur.mmall: debug
+#  config: classpath:log4j2.properties.bak

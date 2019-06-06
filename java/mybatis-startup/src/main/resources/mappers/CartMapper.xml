@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.arthur.mybatisstartup.dao.CartMapper">
+    <resultMap id="BaseResultMap" type="com.arthur.mybatisstartup.entity.Cart">
+        <constructor>
+            <idArg column="ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="PRODUCT_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="QUANTITY" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="CHECKED" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, USER_ID, PRODUCT_ID, QUANTITY, CHECKED, CREATE_TIME, UPDATE_TIME
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from MMALL_CART
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from MMALL_CART
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.arthur.mybatisstartup.entity.Cart">
+        insert into MMALL_CART (ID, USER_ID, PRODUCT_ID,
+        QUANTITY, CHECKED, CREATE_TIME,
+        UPDATE_TIME)
+        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER},
+        #{quantity,jdbcType=INTEGER}, #{checked,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.arthur.mybatisstartup.entity.Cart">
+        insert into MMALL_CART
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="productId != null">
+                PRODUCT_ID,
+            </if>
+            <if test="quantity != null">
+                QUANTITY,
+            </if>
+            <if test="checked != null">
+                CHECKED,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=INTEGER},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="checked != null">
+                #{checked,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.arthur.mybatisstartup.entity.Cart">
+        update MMALL_CART
+        <set>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="productId != null">
+                PRODUCT_ID = #{productId,jdbcType=INTEGER},
+            </if>
+            <if test="quantity != null">
+                QUANTITY = #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="checked != null">
+                CHECKED = #{checked,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.arthur.mybatisstartup.entity.Cart">
+        update MMALL_CART
+        set USER_ID = #{userId,jdbcType=INTEGER},
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+        QUANTITY = #{quantity,jdbcType=INTEGER},
+        CHECKED = #{checked,jdbcType=INTEGER},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
