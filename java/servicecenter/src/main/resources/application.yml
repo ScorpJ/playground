@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: dev
+
+zuul:
+  prefix: /api/
+  strip-prefix: true
+  add-host-header: true
+  routes:
+    Credits:
+      path: /Credits/**
+      url: http://localhost:9500/Credits
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, filters, routes

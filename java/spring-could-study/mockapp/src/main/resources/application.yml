@@ -1,0 +1,6 @@
+server:
+  port: 9501
+
+spring:
+  profiles:
+    active: dev

@@ -1,0 +1,47 @@
+spring:
+  profiles:
+    active: dev
+
+zuul:
+  prefix: /api
+  strip-prefix: true
+  add-host-header: true
+  addProxyHeaders: true
+  routes:
+    Credits:
+      path: /Credits/**
+      url: http://localhost:9500/Credits
+    CreditLine:
+      path: /CreditLine/**
+      url: http://localhost:9500/CreditLine
+#    Files:
+#      path: /Files/**
+#      url: http://localhost:9501/files
+#    MvcCredits:
+#      path: /MvcCredits/**
+#      url: http://localhost:9500/MvcCredits
+#    LocalHi:
+#      path: /MyApps/**
+#      url: forward:/myapps
+#    LocalHi2:
+#      path: /MyApps-2/**
+#      url: forward:/myapps/
+#      strip-prefix: false
+#    Test:
+#      path: /api-credits/**
+#      url:  http://localhost:9500/Credits
+#      strip-prefix: true
+#    Test2:
+#      path: /api2-credits/**
+#      url:  http://localhost:9500/Credits
+#      strip-prefix: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#        include: health, info, metrics, filters, routes
+logging:
+  level:
+    org.springframework.cloud.netflix.zuul: debug

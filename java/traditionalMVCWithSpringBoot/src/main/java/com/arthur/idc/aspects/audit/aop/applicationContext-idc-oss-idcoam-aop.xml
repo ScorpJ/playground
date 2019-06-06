@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.directwebremoting.org/schema/spring-dwr
+       http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+	
+	
+	<bean id="hostAddLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idchost.service.IHostService.addHostTx(..))" />
+    </bean>
+	<bean id="hostRemoveLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idchost.service.IHostService.deleteHostTx(..))" />
+    </bean>
+
+	<bean id="netResAddLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idcnet.service.IResNodeService.insertResNodes(..))" />
+    </bean>
+
+	<bean id="netResRemoveLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idcnet.service.IResNodeService.deleteResNodes(..))" />
+    </bean>
+	
+
+	<bean id="resUpShelfLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idcframe.service.IRackService.upShelf(..))" />
+    </bean>
+
+	<bean id="resDownShelfLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idcframe.service.IRackService.downShelf(..))" />
+    </bean>
+
+	<bean id="ipAssignLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idcipm.service.IIpAddressService.assignIp(..))" />
+    </bean>
+
+	<bean id="ipReleaseLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idcipm.service.IIpAddressService.cancelAssign(..))" />
+    </bean>
+    
+    
+    <bean id="rackAssignLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idcframe.service.IRackAssignService.assignRack(..))" />
+    </bean>
+   
+    <bean id="shelfAssignLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idcframe.service.IRackAssignService.assignShelf(..))" />
+    </bean>
+
+    <bean id="rackReleaseLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idcframe.service.IRackAssignService.cancelAssignRack(..))" />
+    </bean>
+   
+    <bean id="shelfReleaseLogPointcut"
+        class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+       <property name="expression" value="execution(* com.asiainfo.idc.oss.idcframe.service.IRackAssignService.cancelAssignShelf(..))" />
+    </bean>
+
+	
+	<aop:config>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="hostAddLogPointcut"/>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="hostRemoveLogPointcut"/>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="netResAddLogPointcut"/>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="netResRemoveLogPointcut"/>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="resUpShelfLogPointcut"/>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="resDownShelfLogPointcut"/>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="ipAssignLogPointcut"/>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="ipReleaseLogPointcut"/>
+
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="rackAssignLogPointcut"/>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="shelfAssignLogPointcut"/>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="rackReleaseLogPointcut"/>
+	  <aop:advisor advice-ref="resOperLogAdvice" pointcut-ref="shelfReleaseLogPointcut"/>
+	</aop:config>
+	
+</beans>

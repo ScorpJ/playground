@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+#eureka:
+#  client:
+#    registerWithEureka: false
+#    fetchRegistry: false
+#  server:
+#    waitTimeInMsWhenSyncEmpty: 0
+#    enable-self-preservation: false
+#  instance:
+#    lease-expiration-duration-in-seconds: 6
+#    lease-renewal-interval-in-seconds: 2
+

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+
+
+    
+    <!-- Begin of Resource Operation Log Generator Implementations -->
+    <bean id="hostAddLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.HostAddLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idchost.service.IHostService_addHostTx"/>
+    </bean>
+
+    <bean id="hostRemoveLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.HostRemoveLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idchost.service.IHostService_deleteHostTx"/>
+    </bean>
+
+    <bean id="netResAddLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.NetResAddLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idcnet.service.IResNodeService_insertResNodes"/>
+    </bean>
+
+    <bean id="netResRemoveLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.NetResRemoveLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idcnet.service.IResNodeService_deleteResNodes"/>
+    </bean>
+
+    <bean id="resUpShelfLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.ResUpShelfLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idcframe.service.IRackService_upShelf"/>
+    </bean>
+
+    <bean id="resDownShelfLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.ResDownShelfLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idcframe.service.IRackService_downShelf"/>
+    </bean>
+
+    <bean id="ipAssignLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.IpAssignLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idcipm.service.IIpAddressService_assignIp"/>
+    </bean>
+
+    <bean id="ipReleaseLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.IpReleaseLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idcipm.service.IIpAddressService_cancelAssign"/>
+    </bean>
+
+
+    <bean id="rackAssignLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.RackAssignLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idcframe.service.IRackAssignService_assignRack"/>
+    </bean>
+
+    <bean id="shelfAssignLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.ShelfAssignLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idcframe.service.IRackAssignService_assignShelf"/>
+    </bean>
+
+    <bean id="rackReleaseLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.RackReleaseLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idcframe.service.IRackAssignService_cancelAssignRack"/>
+    </bean>
+
+    <bean id="shelfReleaseLogGenerator" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.generator.ShelfReleaseLogGenerator">
+        <property name="name" value="com.asiainfo.idc.oss.idcframe.service.IRackAssignService_cancelAssignShelf"/>
+    </bean>
+
+    <!-- End of Resource Operation Log Generator Implementations -->
+    
+    
+    <!-- Begin of operation log show app. -->
+    <bean id="operLogShowAction" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.action.OperLogShowAction">
+    </bean>
+
+
+    <bean id="subscriberSynAccessService" autowire="byName" 
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.SubscriberSynAccessService">
+    </bean>
+
+    <bean id="ipSynAccessService" autowire="byName" 
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.IpSynAccessService">
+    </bean>
+
+
+
+
+    <bean id="operLogMetaDataXbeanDefLoaction" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.OperLogMetaDataXbeanDefLoaction">
+        <property name="locationPattern">
+         <list>
+           <value>classpath*:com/**/idc_meta_operlogdef*.xml</value>         
+         </list>
+        </property>
+    </bean>
+
+    <bean id="operLogDefService" autowire="byName"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.OperLogDefServiceImpl">
+    </bean>
+ 
+    <bean id="operLogFacadAssembler" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.OperLogFacadAssemblerImpl">
+    </bean>
+
+    <bean id="operLogSnapshotBuilderHelper" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.OperLogSnapshotBuilderHelper">
+    </bean>
+    
+    <bean id="devCheckInSnapshotBuilder" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.snapshotbuilder.DevCheckInSnapshotBuilder">
+      <property name="name" value="devCheckIn"/>
+    </bean>
+
+    <bean id="devCheckOutSnapshotBuilder" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.snapshotbuilder.DevCheckOutSnapshotBuilder">
+      <property name="name" value="devCheckOut"/>
+    </bean>
+
+    <bean id="devUpRackSnapshotBuilder" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.snapshotbuilder.DevUpRackSnapshotBuilder">
+      <property name="name" value="devUpRack"/>
+    </bean>
+
+    <bean id="devDownRackSnapshotBuilder" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.snapshotbuilder.DevDownRackSnapshotBuilder">
+      <property name="name" value="devDownRack"/>
+    </bean>
+
+    <bean id="ipAssignSnapshotBuilder" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.snapshotbuilder.IpAssignSnapshotBuilder">
+      <property name="name" value="ipAssign"/>
+    </bean>
+
+    <bean id="ipReleaseSnapshotBuilder" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.snapshotbuilder.IpReleaseSnapshotBuilder">
+      <property name="name" value="ipRelease"/>
+    </bean>
+
+
+    <bean id="spaceAssignSnapshotBuilder" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.snapshotbuilder.SpaceAssignSnapshotBuilder">
+      <property name="name" value="spaceAssign"/>
+    </bean>
+
+    <bean id="spaceReleaseSnapshotBuilder" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.snapshotbuilder.SpaceReleaseSnapshotBuilder">
+      <property name="name" value="spaceRelease"/>
+    </bean>
+    
+    
+    
+    
+    <bean id="urlMetaOperMatcherHelper" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.UrlMetaOperMatcherHelper">
+    </bean>
+    
+
+    <bean id="devCheckInMetaOperMatcher" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.matcher.DevCheckInMetaOperMatcher">
+      <property name="name" value="devCheckIn"/>
+    </bean>
+
+    <bean id="devCheckOutMetaOperMatcher" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.matcher.DevCheckOutMetaOperMatcher">
+      <property name="name" value="devCheckOut"/>
+    </bean>
+
+    <bean id="devUpRackMetaOperMatcher" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.matcher.DevUpRackMetaOperMatcher">
+      <property name="name" value="devUpRack"/>
+    </bean>
+
+    <bean id="devDownRackMetaOperMatcher" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.matcher.DevDownRackMetaOperMatcher">
+      <property name="name" value="devDownRack"/>
+    </bean>
+
+    <bean id="ipAssignMetaOperMatcher" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.matcher.IpAssignMetaOperMatcher">
+      <property name="name" value="ipAssign"/>
+    </bean>
+
+    <bean id="ipReleaseMetaOperMatcher" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.matcher.IpReleaseMetaOperMatcher">
+      <property name="name" value="ipRelease"/>
+    </bean>
+
+    <bean id="spaceAssignMetaOperMatcher" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.matcher.SpaceAssignMetaOperMatcher">
+      <property name="name" value="spaceAssign"/>
+    </bean>
+
+    <bean id="spaceReleaseMetaOperMatcher" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.resOperLog.service.impl.matcher.SpaceReleaseMetaOperMatcher">
+      <property name="name" value="spaceRelease"/>
+    </bean>
+
+
+    <!-- End of operation log show app. -->
+    
+    <!-- Start of intf view -->
+
+    <bean id="intfGroupAction" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.report.intfgroup.action.IntfGroupAction">
+        <property name="treeGenerator"  ref="groupTreeGenerator" />
+    </bean>
+
+    <bean id="groupTreeGenerator" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.report.intfgroup.action.GroupTreeGenerator">
+    </bean>
+
+    <bean id="intfGroupDwrService" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.report.intfgroup.service.IntfGroupDwrService">
+    </bean>
+
+    <bean id="intfGroupService" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.report.intfgroup.service.impl.IntfGroupServiceImpl">
+    </bean>
+
+    <bean id="intfGroupFlowService" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.report.intfgroup.service.impl.IntfGroupFlowServiceImpl">
+    </bean>
+
+    <bean id="intfGroupDao" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.report.intfgroup.dao.impl.IntfGroupDaoImpl">
+    </bean>
+
+    <bean id="groupIntfRelationDao" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.report.intfgroup.dao.impl.GroupIntfRelationDaoImpl">
+    </bean>
+
+    <bean id="intfGroupFlowReoprtDao" autowire="byName" scope="prototype"
+        class="com.asiainfo.idc.oss.idcoam.report.intfgroup.dao.impl.IntfGroupFlowReoprtDaoImpl">
+    </bean>
+
+
+    <!-- End of intf view -->
+
+
+    <tx:advice id="idcDeviceCheckTxAdvice"
+		transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="csuserDevCheckinSaveTx" propagation="REQUIRED" />
+			<tx:method name="csuserDevCheckinBatchSaveTx" propagation="REQUIRED" />
+			<tx:method name="csuserDevCheckoutTx" propagation="REQUIRED" />
+			<tx:method name="csuserDevUpRackTx" propagation="REQUIRED" />
+			<tx:method name="csuserDevDownRackTx" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor
+			pointcut="execution(* com.asiainfo.idc.oss.idcoam.devcheck.service.impl.*.*(..))"
+			advice-ref="idcDeviceCheckTxAdvice" />
+	</aop:config>       
+    
+    
+</beans>

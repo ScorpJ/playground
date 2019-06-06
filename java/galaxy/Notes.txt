@@ -1,0 +1,31 @@
+Merchant's Guide to the Galaxy
+
+
+
+Functional requirement
+1. get line seprated text file as input.
+2. Parse the intergalactic number conversion rate into mem.
+3. Parse the intergalactic number and unit conversion rate into mem.
+4. Parse input as question and answer it based on knowledge in mem.
+		    
+
+Input:
+
+1. intergalactic number and Roman conversion rate, e.g.  glob  -> I
+2. intergalactic number and unit to mapping arabic Credits conversion rate, e.g.  glob glob Silver -> 34 credits
+
+Out put:
+1. Answer of Q.
+2. Common info for knowledge override (hint user, some conversion rate are existing, and will override or discard it)
+3. Common answer for Q that can not find matching knowledges to answer.
+
+Tasks (work flow):
+1. Parser input file, process it line by line and response each line (build mem knowledge or answer Q).
+2. Core parser:
+   2.1 Roman numerals parse lib.   MMVI - >  2006, MCMXLIV 1944
+   2.2 intergalactic unit convertor. glob glob Silver -> 34 Credits =>  1 Silver = 17 Credits
+
+   
+3. Output fromate
+
+   

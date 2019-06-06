@@ -1,0 +1,117 @@
+Spring Could study notes.
+
+Eureka
+
+Ribbon
+
+Feign
+
+Hystrix
+   断路器
+   线程隔离
+
+Zuul
+    1. How to enable zuul?
+    @EnableZuulProxy at Application
+    Config api gateway's name and port.
+    2. How does zuul route request?
+    2.1 Static route
+        zuul.routes.api-a-url.path=/api-a-url/**
+        zuul.routes.api-a-url.url=http://localhost:8080/
+
+        zuul.routes.<route>.path
+        zuul.routes.<route>.url
+
+        (local port is 5555)
+        http://localhost:5555/api-a-url/hello -> http://localhost:8080/hello
+
+    2.2 Eureka based route
+        zuul.routes.api-a.path=/api-a/**
+        zuul.routes.api-a.serviceId=hello-service
+        eureka.client.serviceUrl.defaultZone=http://localhost:1111/eureka/
+
+        zuul.routes.<route>.path
+        zuul.routes.<route>.serviceId
+
+        or
+        zuul.routes.serviceI=path
+
+        默认路由： 如果API网关引入了Eureka, 则Zuul会为Eureka中的服务名创建一条默认路由规则
+        path会使用serviceId最为请求前缀。
+        zuul.ignored-services可以配置不创建默认路由规则的服务，从而不自动向外部暴露服务
+
+        自定义路由规则
+        通过PatternServiceRouteMapper实现自定义的基于正则的路由规则。
+        User case: 对版本处理  map service-vx to path /vx/service/**
+
+        http://localhost:5555/api-a-url/hello -> hello-service implementation.
+
+        路由规则匹配时采用线性遍历算法
+        zuul.routes.user-service=/user-service/**
+        zuul.routes.user-service-ext=/user-service/ext/**
+
+
+    3. How  to add custom filter
+       By extends com.netflix.zuul.ZuulFilter
+       3.1 define filter type in filterType(): pre, route, post, error, static
+       3.2 filter order in filterOrder()
+       3.3 whether process shouldFilter()
+       3.4 run()
+
+    How to add/config custom filter
+
+    4. How  does zuul's filters work together. Is there anyway to short-circuit the process?
+      4.1 What filters will be selected to initiate
+      4.2 How Ribbon works in the route phase.
+
+    5. Route rule
+       5.1
+       zuul.routes.<route>.path
+       zuul.routes.<route>.url
+       5.2
+       zuul.routes.<route>.path
+       zuul.routes.<route>.serviceId
+       or
+       zuul.routes.serviceI=path
+       5.3 默认路由：
+       如果API网关引入了Eureka, 则Zuul会为Eureka中的服务名创建一条默认路由规则
+       path会使用serviceId最为请求前缀。
+       zuul.ignored-services可以配置不创建默认路由规则的服务，从而不自动向外部暴露服务
+       5.4 自定义路由规则
+       通过PatternServiceRouteMapper实现自定义的基于正则的路由规则。
+       User case: 对版本处理  map service-vx to path /vx/service/**
+       5.5 路由规则匹配时采用线性遍历算法
+       zuul.routes.user-service=/user-service/**
+       zuul.routes.user-service-ext=/user-service/ext/**
+       5.6 路由前缀
+       stripPrefix
+
+     6. Initiate
+        spring.factories
+        org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+        org.springframework.cloud.netflix.zuul.ZuulServerAutoConfiguration,\
+        org.springframework.cloud.netflix.zuul.ZuulProxyAutoConfiguration
+
+        org.springframework.cloud.netflix.zuul
+        org.springframework.cloud.netflix.zuul.web
+
+        org.springframework.cloud.netflix.zuul.filters
+        org.springframework.cloud.netflix.zuul.filters.support
+        org.springframework.cloud.netflix.zuul.filters.discovery
+        org.springframework.cloud.netflix.zuul.filters.pre
+        org.springframework.cloud.netflix.zuul.filters.route
+        org.springframework.cloud.netflix.zuul.filters.post
+
+        org.springframework.cloud.netflix.zuul.util
+        org.springframework.cloud.netflix.zuul.metrics
+
+
+        @EnableZuulProxy V.S @EnableZuulServer
+
+        https://stackoverflow.com/questions/41407509/use-case-for-enablezuulserver
+
+
+
+
+
+
