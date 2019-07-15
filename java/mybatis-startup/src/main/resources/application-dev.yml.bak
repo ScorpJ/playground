@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: UserCredits-Service
+  datasource:
+    platform: h2
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/mmall;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: false
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+mybatis:
+  mapper-locations: classpath*:mappers/*.xml
+#    show-sql: true
