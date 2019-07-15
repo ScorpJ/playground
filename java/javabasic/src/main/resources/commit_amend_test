@@ -5,3 +5,6 @@ git commit - m 'first commit'
 Line two: add content and run git commit --amend. Only one commit ID is expected.
 
 add content after push. and try git commit --amend;
+——————————————————————————————————
+Test 2
+Add first time. then commit and push
