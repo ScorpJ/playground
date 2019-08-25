@@ -3,38 +3,52 @@ package com.arthur.basic.j8f;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CompletableFutureTest {
 
     public static void main(String[] args) {
 
-
-        final List<String> list = Arrays.asList("Hello","World", "Hi", "CompletableFuture");
-        final List<String> list2 = Arrays.asList("hello","world", "hi", "completablefuture");
-        final CompletableFuture<Void> completableFuture = CompletableFuture.supplyAsync(() -> {
-             System.out.println("Process for list 1");
-             return null;
+        Executor executor = Executors.newFixedThreadPool(3, (Runnable r) -> {
+            Thread t = new Thread(r);
+            t.setDaemon(true);
+            return t;
         });
 
-        list.stream().forEach(e -> completableFuture.thenRun(() -> System.out.println(e)));
+        Stream<List<String>> stream =
+            Stream.of(Arrays.asList("Hello","World", "Hi", "CompletableFuture"),
+                    Arrays.asList("hello","world", "hi", "completablefuture"),
+                    Arrays.asList("apple"));
 
+        List<CompletableFuture<Integer>> cfList =
+        stream.map(list ->
+            CompletableFuture.supplyAsync(() -> {
+                list.forEach(e -> printDelay(e));
+                return list.size();
+            },executor)
+        ).collect(Collectors.toList());
 
-        final CompletableFuture<Void> completableFuture2 = CompletableFuture.supplyAsync(() -> {
-            System.out.println("Process for list 2");
-            return null;
-        });
-
-        list2.stream().forEach(e -> completableFuture2.thenRun(() -> System.out.println(e)));
-
-        CompletableFuture.allOf(completableFuture,completableFuture).join();
-
+        System.out.println("*****************************");
+        cfList.stream().map(CompletableFuture::join).collect(Collectors.toList());
 
         System.out.println("Done");
 
-//        CompletableFuture<Void> cf = CompletableFuture.supplyAsync(() -> {
-//            System.out.println(list.get(0));
-//            return null;
-//        });
 
+    }
+
+
+    private static void printDelay(String content){
+
+        int delay = 500 + ThreadLocalRandom.current().nextInt(2000);
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(content);
     }
 }
